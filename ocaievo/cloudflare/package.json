@@ -1,0 +1,9 @@
+{
+  "name": "ediaad-license",
+  "private": true,
+  "type": "module",
+  "description": "ediaad 授權 Worker（TASK-033）：activate / renew 兩個端點與 D1 轉接層",
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ediaad：歷史回看（表單化 match）</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>歷史回看</h1>
+      <p class="subtitle">
+        以表單找出與最近一段走勢相似的歷史片段，並統計它們之後的報酬分佈
+      </p>
+    </header>
+
+    <main>
+      <section aria-labelledby="form-heading">
+        <h2 id="form-heading">查詢條件</h2>
+        <form id="match-form">
+          <p>
+            <label for="match-symbol">商品代號</label>
+            <input id="match-symbol" name="symbol" type="text" placeholder="例如 2330 或 BTCUSDT" />
+          </p>
+          <p>
+            <label for="match-interval">週期</label>
+            <input id="match-interval" name="interval" type="text" value="1d" />
+          </p>
+          <p>
+            <label for="match-window">視窗根數（範例長度 window）</label>
+            <input id="match-window" name="window" type="number" min="1" step="1" value="20" />
+          </p>
+          <p>
+            <label for="match-top">最多回傳幾筆（top）</label>
+            <input id="match-top" name="top" type="number" min="1" step="1" value="10" />
+          </p>
+          <p>
+            <label for="match-horizon">後續走勢根數（horizon）</label>
+            <input id="match-horizon" name="horizon" type="number" min="1" step="1" value="20" />
+          </p>
+          <p>
+            <label for="match-start">開始時間（UTC，可留空）</label>
+            <input id="match-start" name="start" type="text" placeholder="2024-01-01T00:00:00+00:00" />
+          </p>
+          <p>
+            <label for="match-end">結束時間（UTC，可留空）</label>
+            <input id="match-end" name="end" type="text" placeholder="2024-12-31T00:00:00+00:00" />
+          </p>
+          <details>
+            <summary>進階參數</summary>
+            <p>
+              <label for="match-step">滑動步長（step）</label>
+              <input id="match-step" name="step" type="number" min="1" step="1" value="1" />
+            </p>
+            <p>
+              <label for="match-overlap">重疊抑制門檻（overlap）</label>
+              <input id="match-overlap" name="overlap" type="number" min="0" max="0.99" step="0.05" value="0.5" />
+            </p>
+          </details>
+          <p><button type="submit">查詢</button></p>
+        </form>
+        <!-- 以文字表達狀態與錯誤，不依賴顏色 -->
+        <p id="match-status" aria-live="polite">尚未查詢</p>
+        <p id="match-error" role="alert"></p>
+      </section>
+
+      <section aria-labelledby="result-heading">
+        <h2 id="result-heading">相似片段排行</h2>
+        <table id="match-table">
+          <caption>分數由高到低；同分以起始索引升冪</caption>
+          <thead>
+            <tr>
+              <th scope="col">起始索引</th>
+              <th scope="col">結束索引</th>
+              <th scope="col">分數</th>
+              <th scope="col">開始時間</th>
+              <th scope="col">結束時間</th>
+            </tr>
+          </thead>
+          <tbody id="match-rows"></tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="outlook-heading">
+        <h2 id="outlook-heading">後續走勢統計</h2>
+        <div id="match-outlook"></div>
+        <p class="note">
+          「樣本數」是被納入統計的片段數（結束後不足 horizon 根的片段會被排除）。
+          這是歷史統計，不是預測。
+        </p>
+      </section>
+
+      <p><a href="/">回到首頁</a></p>
+    </main>
+
+    <footer>
+      <p>服務只綁定 127.0.0.1，不對外開放。</p>
+    </footer>
+
+    <script src="/static/match.js"></script>
+  </body>
+</html>

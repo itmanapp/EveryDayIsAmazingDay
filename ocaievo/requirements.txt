@@ -1,0 +1,7 @@
+# ediaad 執行期依賴
+#
+# 設計約束（docs/workflow/SPEC.md 第 5 節）：執行期只允許 numpy 與 pandas，
+# 標準庫負責 HTTP、SQLite、簽章與前端資源，維持「一次安裝、零額外依賴」。
+# 版本為 TASK-001 於 2026-09-24 在本機實際安裝並驗證通過的精確版本。
+numpy==2.5.3
+pandas==3.0.6

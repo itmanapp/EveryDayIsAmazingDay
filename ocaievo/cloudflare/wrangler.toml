@@ -1,0 +1,41 @@
+# ediaad 授權 Worker 的部署設定（TASK-033）。
+#
+# **本檔只有佔位值**：沒有真實帳號、D1 或網域（部署未授權，見 PROJECT.md 的對外動作清單）。
+# 部署前要填入的三處都以 REPLACE_WITH 開頭，且測試會斷言檔案裡沒有 32 位十六進位的識別碼
+# 或真實網域——避免把未授權的資源識別碼寫進版控。
+#
+# 簽章私鑰**只能**以 secret 注入（絕不寫進本檔或版控）：
+#   wrangler secret put LICENSE_PRIVATE_KEY_JWK
+# 內容是 OKP／Ed25519 私鑰 JWK（`{"kty":"OKP","crv":"Ed25519","d":"...","x":"..."}`）。
+
+name = "ediaad-license"
+main = "worker/src/router.js"
+compatibility_date = "2026-09-24"
+
+account_id = "REPLACE_WITH_CLOUDFLARE_ACCOUNT_ID"
+
+# 本服務只需要 D1 一個綁定；`binding = "DB"` 就是 Worker 程式裡的 `env.DB`。
+[[d1_databases]]
+binding = "DB"
+database_name = "ediaad"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+# 租約的 `catalog_version` 來源之一；正式部署時填當期 catalog 版本（YYYY-MM-DD）。
+# 若某把密鑰的 `keys.catalog_version` 有值，則以密鑰列優先。
+[vars]
+CATALOG_VERSION = "1970-01-01"
+
+# 路由屬部署設定；網域一律用 `.invalid`（保留域名，不可能指向真實主機），
+# 且整段先註解起來，部署時再依實際網域打開。
+# routes = [
+#   { pattern = "license.example.invalid/v1/*", zone_name = "example.invalid" }
+# ]
+
+# 靜態端點（TASK-034／AC-061）由 Pages／R2 或任何靜態主機提供，**刻意不經過 Worker**：
+# 報告第 6.5 節要求「Worker 掛掉時 manifest 仍可讀」。對照關係（部署時以實際網域取代
+# `static.example.invalid`，並套用 `worker/src/static.js` 的 CACHE_CONTROL 標頭）：
+#   GET https://static.example.invalid/ediaad/v1/latest    -> cloudflare/static/latest.json
+#   GET https://static.example.invalid/ediaad/catalog.json -> cloudflare/static/catalog.json
+#   Cache-Control: public, max-age=300, stale-while-revalidate=86400
+# 部署前的檢查（版本必須同源、schema 必須合法）：
+#   node -e "import('./worker/src/static.js').then(async (m) => { const { readFileSync } = await import('node:fs'); const read = (p) => JSON.parse(readFileSync(p, 'utf8')); const errors = m.validateSnapshot(read('static/latest.json'), read('static/catalog.json')); console.log(errors.length ? errors : 'OK'); process.exit(errors.length ? 1 : 0); })"

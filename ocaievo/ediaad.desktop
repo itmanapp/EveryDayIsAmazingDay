@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=ediaad 市場規律監控
+Comment=啟動本機服務並開啟監控頁面（只綁定 127.0.0.1）
+# 這份桌面檔指向本專案檢出的位置；若把專案搬到別的路徑，請同步修改 Exec。
+Exec=/home/itx-u24d/桌面/DSH/EveryDayIsAmazingDay/ocaievo/.venv/bin/python /home/itx-u24d/桌面/DSH/EveryDayIsAmazingDay/ocaievo/scripts/ediaad_launcher.py
+Path=/home/itx-u24d/桌面/DSH/EveryDayIsAmazingDay/ocaievo
+Terminal=false
+Categories=Office;Finance;

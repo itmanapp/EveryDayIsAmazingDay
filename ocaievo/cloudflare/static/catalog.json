@@ -1,0 +1,36 @@
+{
+  "catalog_version": "1970-01-01",
+  "sources": [
+    {
+      "id": "twse",
+      "display_name": "臺灣證券交易所（上市日線）",
+      "supported_intervals": ["1d"]
+    },
+    {
+      "id": "binance",
+      "display_name": "Binance 加密貨幣",
+      "supported_intervals": ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"]
+    },
+    {
+      "id": "twelvedata",
+      "display_name": "Twelve Data（美股）",
+      "supported_intervals": ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"],
+      "needs_api_key": true
+    },
+    {
+      "id": "csv",
+      "display_name": "自訂 CSV 檔",
+      "supported_intervals": ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w"]
+    }
+  ],
+  "instruments": [
+    {"symbol": "2330", "interval": "1d", "source_id": "twse", "display_name": "台積電"},
+    {"symbol": "2317", "interval": "1d", "source_id": "twse", "display_name": "鴻海"},
+    {"symbol": "1301", "interval": "1d", "source_id": "twse", "display_name": "台塑"},
+    {"symbol": "0050", "interval": "1d", "source_id": "twse", "display_name": "元大台灣50"},
+    {"symbol": "BTCUSDT", "interval": "1h", "source_id": "binance", "display_name": "BTC/USDT"},
+    {"symbol": "ETHUSDT", "interval": "1h", "source_id": "binance", "display_name": "ETH/USDT"},
+    {"symbol": "AAPL", "interval": "1d", "source_id": "twelvedata", "display_name": "Apple Inc."},
+    {"symbol": "NVDA", "interval": "1d", "source_id": "twelvedata", "display_name": "NVIDIA Corporation"}
+  ]
+}

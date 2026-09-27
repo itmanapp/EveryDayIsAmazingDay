@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ediaad：K 線圖與三相位標註</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>K 線圖與三相位標註</h1>
+      <p class="subtitle"><a href="/">回到服務首頁</a></p>
+    </header>
+
+    <main>
+      <section aria-labelledby="controls-heading">
+        <h2 id="controls-heading">選擇商品</h2>
+        <form id="chart-form">
+          <p>
+            <label for="chart-symbol">商品代號</label>
+            <input id="chart-symbol" name="symbol" type="text" value="2330" required />
+          </p>
+          <p>
+            <label for="chart-interval">週期</label>
+            <input id="chart-interval" name="interval" type="text" value="1d" required />
+          </p>
+          <p>
+            <label for="chart-source">來源（可留空，預設為自訂 CSV／catalog 對照）</label>
+            <input id="chart-source" name="source" type="text" />
+          </p>
+          <p>
+            <label for="chart-limit">最多顯示幾根</label>
+            <input id="chart-limit" name="limit" type="number" min="1" max="10000" value="300" />
+          </p>
+          <p><button type="submit">繪製</button></p>
+        </form>
+        <p id="chart-status" aria-live="polite">尚未載入</p>
+      </section>
+
+      <section aria-labelledby="chart-heading">
+        <h2 id="chart-heading">價格走勢</h2>
+        <!-- 相位以形狀與文字標註，不以顏色區分（SPEC 第 6 節可及性）。 -->
+        <canvas id="chart-canvas" width="900" height="420" role="img"
+                aria-label="K 線圖；相位標註另以文字摘要列出"></canvas>
+      </section>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">文字摘要</h2>
+        <p>以下摘要與圖上的標註相同，不依賴顏色或圖形。</p>
+        <ul id="event-summary"></ul>
+        <div id="chart-summary"></div>
+      </section>
+    </main>
+
+    <script src="/static/chart.js"></script>
+    <script src="/static/chart_page.js"></script>
+  </body>
+</html>
