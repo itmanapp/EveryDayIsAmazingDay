@@ -86,6 +86,10 @@ cd ocaievo
 python3 scripts/bootstrap_env.py     # 建立 .venv 並安裝 requirements.txt、requirements-dev.txt
 ```
 
+`bootstrap_env.py` 與工作目錄無關（以自身檔案位置解析路徑），且可重複執行；在沒有預裝 `pip` 的環境會先以 `venv --without-pip` 建立 `.venv`，再用標準庫下載 `get-pip.py`。
+
+> **測試前必須先完成這一步**：測試中有 55 個案例以子程序執行 `ocaievo/.venv/bin/python`（CLI 端到端、服務啟動、跨程序可見性、機器指紋穩定性等），因此**全新 clone 未先 bootstrap 就執行 `pytest` 會出現 55 個 `FileNotFoundError: …/.venv/bin/python`**。這是缺少環境而非程式缺陷；bootstrap 後即 1007 全數通過。
+
 ## 執行
 
 所有指令的工作目錄為 `ocaievo/`：
@@ -128,7 +132,7 @@ python3 scripts/ediaad_launcher.py
 ## 測試與驗證
 
 ```bash
-# 1) Python 測試（離線可跑，無需網路）
+# 1) Python 測試（離線可跑，無需網路；需先完成上方「安裝」）
 cd ocaievo && .venv/bin/python -m pytest -q
 #    實測：1007 passed
 
