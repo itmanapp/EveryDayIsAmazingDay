@@ -162,6 +162,24 @@ ca155909c6fb58862c1009d39a42afbbf6250d5bca11abec8db2ca2a7cdeb1ab   （ocaievo/ �
 
 ## 授權條款
 
-本倉庫目前**未附任何開源授權條款**（未建立 `LICENSE`）；在權利人補上授權前，預設保留所有權利。若打算讓他人使用，建議擇一加入（例如 MIT、Apache-2.0 或 GPL-3.0）。
+本專案以 **GNU General Public License v3.0（或更新版本，GPL-3.0-or-later）** 釋出，完整條文見 [`LICENSE`](LICENSE)（與 <https://www.gnu.org/licenses/gpl-3.0.txt> 相同，35,149 bytes，sha256 `3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986`）。
 
-本專案的工作流程文件沿用 [itmanapp/skills-agent-spec](https://github.com/itmanapp/skills-agent-spec)（`project-workflow` v1.0）之規則與範本。
+Copyright (C) 2026 itmanapp
+
+```text
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <https://www.gnu.org/licenses/>.
+```
+
+（白話摘要：本程式為自由軟體，您可依自由軟體基金會發布的 GNU 通用公眾授權條款第 3 版或任何更新版本的條款，再散布及／或修改本程式；本程式不含任何擔保。）
+
+`prework/` 內的工作流程文件與工具包沿用 [itmanapp/skills-agent-spec](https://github.com/itmanapp/skills-agent-spec)（`project-workflow` v1.0）之規則與範本，其權利與授權歸原專案所有。
